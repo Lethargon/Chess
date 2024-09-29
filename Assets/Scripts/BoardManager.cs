@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 [Serializable]
 public struct Coords
@@ -57,12 +58,21 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private GameObject[] blackPieces;
     [SerializeField] private PieceType[] blackIdentities;
 
+    [SerializeField] private Sprite[] whiteSprites;
+    [SerializeField] private Sprite[] blackSprites;
+
+
     private GameObject chosenPiece;
 
     private Color colorToPlay = Color.White;
 
     private int[] knightMovesX = { 1, 1, -1, -1, 2, 2, -2, -2};
     private int[] knightMovesY = { 2, -2, 2, -2, 1, -1, 1, -1};
+
+    private float lerpDuration = 0.1f;
+
+    private int whiteCaptures = 0;
+    private int blackCaptures = 0;
 
     
     void Start()
@@ -101,6 +111,8 @@ public class BoardManager : MonoBehaviour
             UpdateLegalMoves(whitePieces[i].GetComponent<Piece>());
             UpdateLegalMoves(blackPieces[i].GetComponent<Piece>());
         }
+
+
     }
 
     public void TileClicked(Tile t)
@@ -118,6 +130,7 @@ public class BoardManager : MonoBehaviour
             if (moved)
             {
                 colorToPlay = colorToPlay == Color.White ? Color.Black : Color.White;
+                UIController.Instance().SetGameInfo("" + colorToPlay.ToString() + "'s turn");
             }
             else
             {
@@ -163,11 +176,24 @@ public class BoardManager : MonoBehaviour
         Tile end = GetTile(destination);
         if (!end.empty)
         {
+            // adds captured piece to display zone (currently shows the fake sprite instead of the real)
+            if(colorToPlay == Color.White)
+            {
+                // end.piece gives gameobject instead of Piece, so I can't get the real type of the captured piece
+                UIController.Instance().root.Q<VisualElement>("WhiteCapture" + whiteCaptures).style.backgroundImage = new StyleBackground(end.piece.gameObject.GetComponent<SpriteRenderer>().sprite);
+                whiteCaptures++;
+            }
+            else
+            {
+                UIController.Instance().root.Q<VisualElement>("BlackCapture" + blackCaptures).style.backgroundImage = new StyleBackground(end.piece.gameObject.GetComponent<SpriteRenderer>().sprite);
+                blackCaptures++;
+            }
             end.piece.gameObject.SetActive(false); //change this to move to display zone instead
         }
         end.piece = p.gameObject;
         end.empty = false;
-        p.gameObject.transform.position = end.transform.position;
+        StartCoroutine(LerpMove(p, p.gameObject.transform.position, end.transform.position));
+        //p.gameObject.transform.position = end.transform.position;
         p.pos = end.pos;
         p.unmoved = false;
 
@@ -398,6 +424,32 @@ public class BoardManager : MonoBehaviour
     {
         if (x < 0 || y < 0 || x > 7 || y > 7) return null;
         return board[x].tiles[y].GetComponent<Tile>();
+    }
+
+    // this should maybe in in Piece.cs
+    private IEnumerator LerpMove(Piece p, Vector3 startPosition, Vector3 endPosition)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < lerpDuration)
+        {
+            // calculate the progress of the lerp
+            float progress = elapsedTime / lerpDuration;
+
+            // interpolate position
+            p.gameObject.transform.position = Vector3.Lerp(startPosition, endPosition, progress);
+
+            // increment time
+            elapsedTime += Time.deltaTime;
+
+            // wait for next frame
+            yield return null;
+        }
+
+        // ensure the final position is actually the target position
+        p.gameObject.transform.position = endPosition;
+
+        //Debug.Log("Lerp completed");
     }
 
 }

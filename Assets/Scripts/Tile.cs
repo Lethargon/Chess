@@ -14,4 +14,9 @@ public class Tile : MonoBehaviour
         Debug.Log("Clicked tile at x: " + pos.x + ", y: " + pos.y);
         board.TileClicked(this);
     }
+
+    public void HighlightTile(bool successfulMove)
+    {
+
+    }
 }

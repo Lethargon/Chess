@@ -2,22 +2,22 @@
     <ui:VisualElement name="Background" style="flex-grow: 1; flex-direction: row; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px;">
         <ui:VisualElement name="LeftSide" style="flex-grow: 0; width: 20%;">
             <ui:VisualElement name="BlackCaptures" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: flex-start; flex-wrap: wrap;">
-                <ui:VisualElement name="Capture0" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture1" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture2" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture3" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture4" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture5" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture6" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture7" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture8" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture9" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture10" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture11" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture12" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture13" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture14" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture15" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture0" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture1" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture2" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture3" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture4" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture5" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture6" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture7" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture8" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture9" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture10" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture11" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture12" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture13" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture14" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="BlackCapture15" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
             </ui:VisualElement>
             <ui:VisualElement name="BlackCheck" style="flex-grow: 1; flex-direction: row; align-items: center;">
                 <ui:VisualElement name="BlackKingImage" style="flex-grow: 0; background-image: url(&apos;project://database/Assets/Sprites/Chess_King_B.png?fileID=2800000&amp;guid=249fe54dc1139a14789abc2a281151a1&amp;type=3#Chess_King_B&apos;); width: 64px; height: 64px; margin-right: 5px;" />
@@ -28,25 +28,27 @@
                 <ui:VisualElement name="WhiteCheckLight" style="flex-grow: 0; background-image: url(&apos;project://database/Assets/Sprites/Check_Light_Safe.png?fileID=2800000&amp;guid=f0a3de90542404543a7881509806222d&amp;type=3#Check_Light_Safe&apos;); width: 64px; height: 64px;" />
             </ui:VisualElement>
             <ui:VisualElement name="WhiteCaptures" style="flex-grow: 1; flex-direction: row; align-items: center; align-self: auto; justify-content: flex-start; flex-wrap: wrap-reverse;">
-                <ui:VisualElement name="Capture0" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px; background-image: none;" />
-                <ui:VisualElement name="Capture1" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture2" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture3" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture4" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture5" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px; background-image: none;" />
-                <ui:VisualElement name="Capture6" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture7" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture8" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture9" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture10" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture11" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture12" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture13" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture14" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
-                <ui:VisualElement name="Capture15" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture0" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px; background-image: none;" />
+                <ui:VisualElement name="WhiteCapture1" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture2" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture3" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture4" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture5" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px; background-image: none;" />
+                <ui:VisualElement name="WhiteCapture6" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture7" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture8" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture9" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture10" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture11" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture12" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture13" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture14" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
+                <ui:VisualElement name="WhiteCapture15" style="flex-grow: 0; flex-direction: column; flex-wrap: nowrap; width: 64px; height: 64px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Middle" style="flex-grow: 1;" />
-        <ui:VisualElement name="RightSide" style="flex-grow: 0; width: 20%;" />
+        <ui:VisualElement name="RightSide" style="flex-grow: 0; width: 20%; justify-content: center;">
+            <ui:Label tabindex="-1" text="White&apos;s turn" parse-escape-sequences="true" display-tooltip-when-elided="true" name="GameInfo" style="justify-content: flex-start; -unity-font: url(&apos;project://database/Assets/UI/PixelOperator8-Bold.ttf?fileID=12800000&amp;guid=47f3ef026544f5243be952ab57854145&amp;type=3#PixelOperator8-Bold&apos;); -unity-font-definition: url(&apos;project://database/Assets/UI/PixelOperator8-Bold%20SDF.asset?fileID=11400000&amp;guid=ca913ba5bd485ee41b96eef78736ee09&amp;type=2#PixelOperator8-Bold SDF&apos;); color: rgb(255, 255, 255); font-size: 20px;" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

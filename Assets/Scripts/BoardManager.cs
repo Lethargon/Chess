@@ -24,7 +24,7 @@ public struct Coords
 
     public int DistSquared(Coords other)
     {
-        return (x - other.x) ^ 2 + (y - other.y) ^ 2;
+        return Mathf.Abs(x - other.x) ^ 2 + Mathf.Abs(y - other.y) ^ 2;
     }
 
     public int x;
@@ -94,6 +94,12 @@ public class BoardManager : MonoBehaviour
                 t.board = this;
                 if (!t.empty) t.piece.GetComponent<Piece>().pos = t.pos;
             }
+        }
+
+        for(int i = 0; i < 16; i++)
+        {
+            UpdateLegalMoves(whitePieces[i].GetComponent<Piece>());
+            UpdateLegalMoves(blackPieces[i].GetComponent<Piece>());
         }
     }
 
@@ -196,12 +202,12 @@ public class BoardManager : MonoBehaviour
                 }
             }
             t = GetTile(p.pos.x - 1, p.pos.y + 1 * dir);
-            if (t != null && t.piece != null && t.piece.GetComponent<Piece>().color != p.color)
+            if (t != null && !t.empty && t.piece.GetComponent<Piece>().color != p.color)
             {
                 p.AddLegalMove(t.pos);
             }
             t = GetTile(p.pos.x + 1, p.pos.y + 1 * dir);
-            if (t != null || t.piece != null && GetTile(p.pos.x + 1, p.pos.y + 1 * dir).piece.GetComponent<Piece>().color != p.color)
+            if (t != null && !t.empty && t.piece.GetComponent<Piece>().color != p.color)
             {
                 p.AddLegalMove(t.pos);
             }
@@ -260,7 +266,7 @@ public class BoardManager : MonoBehaviour
                     break;
                 }
             }
-            for (int i = p.pos.y - 1; i < 0; i--)
+            for (int i = p.pos.y - 1; i >= 0; i--)
             {
                 t = GetTile(p.pos.x, i);
                 if (t.empty)

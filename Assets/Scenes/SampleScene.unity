@@ -4896,6 +4896,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 786642dd1c5521c428fa1b1022c04dd5, type: 3}
   - {fileID: 21300000, guid: 82c12554a66811f4eb569bb196516936, type: 3}
   - {fileID: 21300000, guid: 249fe54dc1139a14789abc2a281151a1, type: 3}
+  tileHighlight:
+    serializedVersion: 2
+    rgba: 4282962382
 --- !u!4 &850808249
 Transform:
   m_ObjectHideFlags: 0

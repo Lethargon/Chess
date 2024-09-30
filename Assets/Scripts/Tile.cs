@@ -9,6 +9,13 @@ public class Tile : MonoBehaviour
     public bool empty = true;
     public GameObject piece;
 
+    private Color32 baseColor;
+
+    private void Start()
+    {
+        baseColor = GetComponent<SpriteRenderer>().color;
+    }
+
     private void OnMouseDown()
     {
         Debug.Log("Clicked tile at x: " + pos.x + ", y: " + pos.y);
@@ -18,5 +25,15 @@ public class Tile : MonoBehaviour
     public void HighlightTile(bool successfulMove)
     {
 
+    }
+
+    public void SetColor(Color32 color)
+    {
+        GetComponent<SpriteRenderer>().color = color;
+    }
+
+    public void ResetColor()
+    {
+        GetComponent<SpriteRenderer>().color = baseColor;
     }
 }

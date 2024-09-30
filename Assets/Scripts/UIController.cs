@@ -64,6 +64,18 @@ public class UIController : MonoBehaviour
         checkWarningBlack.style.backgroundImage = isBlackKingChecked ? new StyleBackground(checkLightSprites[1]) : new StyleBackground(checkLightSprites[0]);
     }
 
+    public void SetCheckMateLight(bool whiteWon)
+    {
+        if(whiteWon)
+        {
+            checkWarningBlack.style.backgroundImage = new StyleBackground(checkLightSprites[2]);
+        }
+        else
+        {
+            checkWarningWhite.style.backgroundImage = new StyleBackground(checkLightSprites[2]);
+        }
+    }
+
     private void OnRestartButtonClicked()
     {
         SceneManager.LoadScene("SampleScene");

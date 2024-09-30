@@ -97,12 +97,17 @@ public class BoardManager : MonoBehaviour
 
     private bool whiteInCheck = false;
     private bool blackInCheck = true;
+    private bool gameOver = false;
 
     public List<LogEntry> log = new List<LogEntry>();
+
+    private AudioSource audioSource;
+    private string clipToPlay = "";
 
     
     void Start()
     {
+        gameOver = false;
         //randomizes the piece types
         for (int i = 0; i < 16; i++)
         {
@@ -138,6 +143,8 @@ public class BoardManager : MonoBehaviour
             if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
         }
 
+        audioSource = GetComponent<AudioSource>();
+
 
     }
 
@@ -161,8 +168,10 @@ public class BoardManager : MonoBehaviour
             bool moved = AttemptMove(t.pos);
             if (moved)
             {
+                clipToPlay = clipToPlay.Length < 1 ? "move" : clipToPlay;
+
                 colorToPlay = colorToPlay == Color.White ? Color.Black : Color.White;
-                UIController.Instance().SetGameInfo("" + colorToPlay.ToString() + "'s turn");
+                if(!gameOver)UIController.Instance().SetGameInfo("" + colorToPlay.ToString() + "'s turn");
                 blackInCheck = false;
                 whiteInCheck = false;
                 for (int i = 0; i < 16; i++)
@@ -170,9 +179,9 @@ public class BoardManager : MonoBehaviour
                     if (UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
                     if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
                 }
-                UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
-                Debug.Log("white in check: " + whiteInCheck);
-                Debug.Log("black in check: " + blackInCheck);
+                if(!gameOver)UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
+                //Debug.Log("white in check: " + whiteInCheck);
+                //Debug.Log("black in check: " + blackInCheck);
 
                 if (log.Count > 1)
                 {
@@ -180,10 +189,18 @@ public class BoardManager : MonoBehaviour
                     GetTile(log[^2].from).ResetColor();
                 }
                 GetTile(log[^1].to).SetColor(tileHighlight);
+                if(blackInCheck || whiteInCheck)
+                {
+                    clipToPlay = "check";
+                }
+                
+                audioSource.PlayOneShot((AudioClip)Resources.Load(clipToPlay));
+                clipToPlay = "";
+                
             }
             else
             {
-                //sound/visual feedback that move failed
+                audioSource.PlayOneShot((AudioClip)Resources.Load("error_move"));
             }
         }
     }
@@ -229,23 +246,36 @@ public class BoardManager : MonoBehaviour
         Tile end = GetTile(destination);
         if (!end.empty)
         {
-            // adds captured piece to display zone (currently shows the fake sprite instead of the real)
+            clipToPlay = "capture";
+            // adds captured piece to display zone
             if (colorToPlay == Color.White)
             {
                 UIController.Instance().root.Q<VisualElement>("WhiteCapture" + whiteCaptures).style.backgroundImage = new StyleBackground(blackSprites[(int)blackIdentities[end.piece.GetComponent<Piece>().id]]);
                 whiteCaptures++;
+
+                // checks if captured piece is king
+                if(blackIdentities[end.piece.GetComponent<Piece>().id] == PieceType.King)
+                {
+                    WinGame(true);
+                }
             }
             else
             {
                 UIController.Instance().root.Q<VisualElement>("BlackCapture" + blackCaptures).style.backgroundImage = new StyleBackground(whiteSprites[(int)whiteIdentities[end.piece.GetComponent<Piece>().id]]);
                 blackCaptures++;
+
+                // checks if captured piece is king
+                if (whiteIdentities[end.piece.GetComponent<Piece>().id] == PieceType.King)
+                {
+                    WinGame(false);
+                }
             }
-            end.piece.gameObject.SetActive(false); //change this to move to display zone instead
+            end.piece.gameObject.SetActive(false);
+            
         }
         end.piece = p.gameObject;
         end.empty = false;
         StartCoroutine(LerpMove(p, p.gameObject.transform.position, end.transform.position));
-        //p.gameObject.transform.position = end.transform.position;
         p.pos = end.pos;
         p.unmoved = false;
 
@@ -254,6 +284,7 @@ public class BoardManager : MonoBehaviour
             if(whiteIdentities[p.id] == PieceType.Pawn && p.pos.y == 7)
             {
                 whiteIdentities[p.id] = PieceType.Queen;
+                p.gameObject.GetComponent<SpriteRenderer>().sprite = whiteSprites[4];
             }
         }
         else
@@ -261,6 +292,7 @@ public class BoardManager : MonoBehaviour
             if (blackIdentities[p.id] == PieceType.Pawn && p.pos.y == 0)
             {
                 blackIdentities[p.id] = PieceType.Queen;
+                p.gameObject.GetComponent<SpriteRenderer>().sprite = blackSprites[4];
             }
         }
 
@@ -533,6 +565,19 @@ public class BoardManager : MonoBehaviour
         p.gameObject.transform.position = endPosition;
 
         //Debug.Log("Lerp completed");
+    }
+
+    private void WinGame(bool whiteWin)
+    {
+        clipToPlay = "king_captured";
+
+        string winText = whiteWin == true ? "White won!" : "Black won!";
+
+        if(!gameOver)UIController.Instance().SetGameInfo(winText);
+
+        UIController.Instance().SetCheckMateLight(whiteWin);
+
+        gameOver = true;
     }
 
 }

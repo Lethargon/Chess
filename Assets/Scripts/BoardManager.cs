@@ -209,6 +209,21 @@ public class BoardManager : MonoBehaviour
         p.pos = end.pos;
         p.unmoved = false;
 
+        if(p.color == Color.White)
+        {
+            if(whiteIdentities[p.id] == PieceType.Pawn && p.pos.y == 7)
+            {
+                whiteIdentities[p.id] = PieceType.Queen;
+            }
+        }
+        else
+        {
+            if (blackIdentities[p.id] == PieceType.Pawn && p.pos.y == 0)
+            {
+                blackIdentities[p.id] = PieceType.Queen;
+            }
+        }
+
         return true;
     }
 
@@ -252,7 +267,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        else if (type == PieceType.Rook || type == PieceType.Queen)
+        if (type == PieceType.Rook || type == PieceType.Queen)
         {
             for (int i = p.pos.x + 1; i < 8; i++)
             {
@@ -324,7 +339,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        else if (type == PieceType.Bishop || type == PieceType.Queen)
+        if (type == PieceType.Bishop || type == PieceType.Queen)
         {
             for (int i = 1; p.pos.x + i < 8 && p.pos.y + i < 8; i++)
             {
@@ -396,7 +411,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        else if (type == PieceType.Knight)
+        if (type == PieceType.Knight)
         {
             for (int i = 0; i < 8; i++)
             {
@@ -408,7 +423,7 @@ public class BoardManager : MonoBehaviour
             }
         }
 
-        else if (type == PieceType.King)
+        if (type == PieceType.King)
         {
             for(int i = -1; i < 2; i++)
             {

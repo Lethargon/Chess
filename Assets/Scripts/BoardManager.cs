@@ -61,7 +61,6 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Sprite[] whiteSprites;
     [SerializeField] private Sprite[] blackSprites;
 
-
     private GameObject chosenPiece;
 
     private Color colorToPlay = Color.White;
@@ -189,15 +188,14 @@ public class BoardManager : MonoBehaviour
         if (!end.empty)
         {
             // adds captured piece to display zone (currently shows the fake sprite instead of the real)
-            if(colorToPlay == Color.White)
+            if (colorToPlay == Color.White)
             {
-                // end.piece gives gameobject instead of Piece, so I can't get the real type of the captured piece
-                UIController.Instance().root.Q<VisualElement>("WhiteCapture" + whiteCaptures).style.backgroundImage = new StyleBackground(end.piece.gameObject.GetComponent<SpriteRenderer>().sprite);
+                UIController.Instance().root.Q<VisualElement>("WhiteCapture" + whiteCaptures).style.backgroundImage = new StyleBackground(blackSprites[(int)blackIdentities[end.piece.GetComponent<Piece>().id]]);
                 whiteCaptures++;
             }
             else
             {
-                UIController.Instance().root.Q<VisualElement>("BlackCapture" + blackCaptures).style.backgroundImage = new StyleBackground(end.piece.gameObject.GetComponent<SpriteRenderer>().sprite);
+                UIController.Instance().root.Q<VisualElement>("BlackCapture" + blackCaptures).style.backgroundImage = new StyleBackground(whiteSprites[(int)whiteIdentities[end.piece.GetComponent<Piece>().id]]);
                 blackCaptures++;
             }
             end.piece.gameObject.SetActive(false); //change this to move to display zone instead

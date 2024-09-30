@@ -30,10 +30,30 @@ public struct Coords
 
     public int x;
     public int y;
+
+    public string ToText()
+    {
+        char column = (char)(x + 65);
+        string row = "" + (y + 1);
+        return column + row;
+    }
 }
 public enum Color
 {
     White, Black
+}
+
+public struct LogEntry
+{
+    public Coords from;
+    public Coords target;
+    public Coords to;
+    public string text;
+
+    public void GenerateText()
+    {
+        text = "Moved piece from " + from.ToText() + " to " + to.ToText() + ", targeting " + target.ToText();
+    }
 }
 
 public class BoardManager : MonoBehaviour
@@ -61,6 +81,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private Sprite[] whiteSprites;
     [SerializeField] private Sprite[] blackSprites;
 
+    [SerializeField] private Color32 tileHighlight;
+
     private GameObject chosenPiece;
 
     private Color colorToPlay = Color.White;
@@ -75,6 +97,8 @@ public class BoardManager : MonoBehaviour
 
     private bool whiteInCheck = false;
     private bool blackInCheck = true;
+
+    public List<LogEntry> log = new List<LogEntry>();
 
     
     void Start()
@@ -124,7 +148,13 @@ public class BoardManager : MonoBehaviour
             if (!t.empty && colorToPlay == t.piece.GetComponent<Piece>().color)
             {
                 chosenPiece = t.piece;
+                t.SetColor(tileHighlight);
             }
+        }
+        else if (chosenPiece.GetComponent<Piece>().pos.Equals(t.pos))
+        {
+            chosenPiece = null;
+            t.ResetColor();
         }
         else
         {
@@ -143,6 +173,13 @@ public class BoardManager : MonoBehaviour
                 UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
                 Debug.Log("white in check: " + whiteInCheck);
                 Debug.Log("black in check: " + blackInCheck);
+
+                if (log.Count > 1)
+                {
+                    GetTile(log[^2].to).ResetColor();
+                    GetTile(log[^2].from).ResetColor();
+                }
+                GetTile(log[^1].to).SetColor(tileHighlight);
             }
             else
             {
@@ -159,7 +196,11 @@ public class BoardManager : MonoBehaviour
         UpdateLegalMoves(p);
         chosenPiece = null;
 
-        if (p.legalMoves.Count == 0) return false;
+        if (p.legalMoves.Count == 0)
+        {
+            GetTile(p.pos).ResetColor();
+            return false;
+        }
 
         Coords destination = new Coords();
 
@@ -222,6 +263,11 @@ public class BoardManager : MonoBehaviour
                 blackIdentities[p.id] = PieceType.Queen;
             }
         }
+
+        LogEntry e = new() { from = origin.pos, to = end.pos, target = target };
+        e.GenerateText();
+        Debug.Log(e.text);
+        log.Add(e);
 
         return true;
     }

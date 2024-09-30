@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class UIController : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class UIController : MonoBehaviour
     private VisualElement checkWarningBlack;
     private VisualElement checkWarningWhite;
     [SerializeField] private Sprite[] checkLightSprites;
+
+    private VisualElement rulesContainer;
 
     private void Awake()
     {
@@ -29,6 +32,14 @@ public class UIController : MonoBehaviour
 
         checkWarningBlack = root.Q<VisualElement>("BlackCheckLight");
         checkWarningWhite = root.Q<VisualElement>("WhiteCheckLight");
+
+        root.Q<Button>("RestartButton").clicked += OnRestartButtonClicked;
+        root.Q<Button>("RulesButton").clicked += OnRulesButtonClicked;
+        root.Q<Button>("MainMenuButton").clicked += OnMainMenuButtonClicked;
+
+        rulesContainer = root.Q<VisualElement>("RulesContainer");
+        rulesContainer.style.display = DisplayStyle.None;
+
     }
 
     // Update is called once per frame
@@ -51,5 +62,21 @@ public class UIController : MonoBehaviour
     {
         checkWarningWhite.style.backgroundImage = isWhiteKingChecked ? new StyleBackground(checkLightSprites[1]) : new StyleBackground(checkLightSprites[0]);
         checkWarningBlack.style.backgroundImage = isBlackKingChecked ? new StyleBackground(checkLightSprites[1]) : new StyleBackground(checkLightSprites[0]);
+    }
+
+    private void OnRestartButtonClicked()
+    {
+        SceneManager.LoadScene("SampleScene");
+        Debug.Log("Restart");
+    }
+
+    private void OnRulesButtonClicked()
+    {
+        rulesContainer.style.display = rulesContainer.style.display == DisplayStyle.None? DisplayStyle.Flex : DisplayStyle.None;
+    }
+
+    private void OnMainMenuButtonClicked()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

@@ -74,6 +74,9 @@ public class BoardManager : MonoBehaviour
     private int whiteCaptures = 0;
     private int blackCaptures = 0;
 
+    private bool whiteInCheck = false;
+    private bool blackInCheck = true;
+
     
     void Start()
     {
@@ -108,8 +111,8 @@ public class BoardManager : MonoBehaviour
 
         for(int i = 0; i < 16; i++)
         {
-            UpdateLegalMoves(whitePieces[i].GetComponent<Piece>());
-            UpdateLegalMoves(blackPieces[i].GetComponent<Piece>());
+            if (UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
+            if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
         }
 
 
@@ -131,6 +134,15 @@ public class BoardManager : MonoBehaviour
             {
                 colorToPlay = colorToPlay == Color.White ? Color.Black : Color.White;
                 UIController.Instance().SetGameInfo("" + colorToPlay.ToString() + "'s turn");
+                blackInCheck = false;
+                whiteInCheck = false;
+                for (int i = 0; i < 16; i++)
+                {
+                    if (UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
+                    if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
+                }
+                Debug.Log("white in check: " + whiteInCheck);
+                Debug.Log("black in check: " + blackInCheck);
             }
             else
             {
@@ -200,7 +212,8 @@ public class BoardManager : MonoBehaviour
         return true;
     }
 
-    private void UpdateLegalMoves(Piece p)
+    //returns true if one of the legal moves checks the opposing king
+    private bool UpdateLegalMoves(Piece p)
     {
         p.legalMoves.Clear();
 
@@ -412,6 +425,16 @@ public class BoardManager : MonoBehaviour
                 }
             }
         }
+        for(int i = 0; i < p.legalMoves.Count; i++)
+        {
+            t = GetTile(p.legalMoves[i]);
+            if (!t.empty)
+            {
+                Piece op = t.piece.GetComponent<Piece>();
+                if ((p.color == Color.White ? blackIdentities[op.id] : whiteIdentities[op.id]) == PieceType.King) return true;
+            }
+        }
+        return false;
     }
 
     private Tile GetTile(Coords pos)

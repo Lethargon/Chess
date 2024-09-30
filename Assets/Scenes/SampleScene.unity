@@ -2514,7 +2514,7 @@ MonoBehaviour:
     x: 0
     y: 0
   empty: 0
-  piece: {fileID: 1771094211}
+  piece: {fileID: 525866001}
 --- !u!212 &515902294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2701,7 +2701,7 @@ Transform:
   m_GameObject: {fileID: 525866001}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4266,7 +4266,7 @@ MonoBehaviour:
     x: 0
     y: 0
   empty: 0
-  piece: {fileID: 1489731896}
+  piece: {fileID: 1788700610}
 --- !u!212 &750171741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4858,8 +4858,8 @@ MonoBehaviour:
   - {fileID: 1307463399}
   - {fileID: 1373068239}
   - {fileID: 1972021883}
-  - {fileID: 525866001}
   - {fileID: 1771094211}
+  - {fileID: 525866001}
   - {fileID: 1703396671}
   - {fileID: 981631845}
   - {fileID: 832226948}
@@ -4876,8 +4876,8 @@ MonoBehaviour:
   - {fileID: 1745695032}
   - {fileID: 1764751528}
   - {fileID: 1501747146}
-  - {fileID: 1489731896}
   - {fileID: 1788700610}
+  - {fileID: 1489731896}
   - {fileID: 51798379}
   - {fileID: 1046996478}
   - {fileID: 1604173606}
@@ -6916,7 +6916,7 @@ MonoBehaviour:
     x: 0
     y: 0
   empty: 0
-  piece: {fileID: 525866001}
+  piece: {fileID: 1771094211}
 --- !u!212 &1363577760
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8115,7 +8115,7 @@ Transform:
   m_GameObject: {fileID: 1489731896}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: 0.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11123,7 +11123,7 @@ Transform:
   m_GameObject: {fileID: 1771094211}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: -3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11227,7 +11227,7 @@ Transform:
   m_GameObject: {fileID: 1788700610}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 3.5, z: 0}
+  m_LocalPosition: {x: -0.5, y: 3.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12970,7 +12970,7 @@ MonoBehaviour:
     x: 0
     y: 0
   empty: 0
-  piece: {fileID: 1788700610}
+  piece: {fileID: 1489731896}
 --- !u!212 &2062766202
 SpriteRenderer:
   m_ObjectHideFlags: 0

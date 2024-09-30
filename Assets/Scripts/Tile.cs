@@ -22,11 +22,6 @@ public class Tile : MonoBehaviour
         board.TileClicked(this);
     }
 
-    public void HighlightTile(bool successfulMove)
-    {
-
-    }
-
     public void SetColor(Color32 color)
     {
         GetComponent<SpriteRenderer>().color = color;

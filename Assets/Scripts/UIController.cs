@@ -21,17 +21,19 @@ public class UIController : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
+        root = GetComponent<UIDocument>().rootVisualElement;
+
+        checkWarningBlack = root.Q<VisualElement>("BlackCheckLight");
+        checkWarningWhite = root.Q<VisualElement>("WhiteCheckLight");
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        root = GetComponent<UIDocument>().rootVisualElement;
 
         gameInfoLabel = root.Q<Label>("GameInfo");
 
-        checkWarningBlack = root.Q<VisualElement>("BlackCheckLight");
-        checkWarningWhite = root.Q<VisualElement>("WhiteCheckLight");
 
         root.Q<Button>("RestartButton").clicked += OnRestartButtonClicked;
         root.Q<Button>("RulesButton").clicked += OnRulesButtonClicked;

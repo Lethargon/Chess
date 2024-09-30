@@ -96,13 +96,15 @@ public class BoardManager : MonoBehaviour
     private int blackCaptures = 0;
 
     private bool whiteInCheck = false;
-    private bool blackInCheck = true;
+    private bool blackInCheck = false;
     private bool gameOver = false;
 
     public List<LogEntry> log = new List<LogEntry>();
 
     private AudioSource audioSource;
     private string clipToPlay = "";
+
+    private Tile previousTile = null;
 
     
     void Start()
@@ -143,6 +145,8 @@ public class BoardManager : MonoBehaviour
             if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
         }
 
+        UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
+
         audioSource = GetComponent<AudioSource>();
 
 
@@ -156,12 +160,20 @@ public class BoardManager : MonoBehaviour
             {
                 chosenPiece = t.piece;
                 t.SetColor(tileHighlight);
+                previousTile = t;
             }
         }
         else if (chosenPiece.GetComponent<Piece>().pos.Equals(t.pos))
         {
             chosenPiece = null;
             t.ResetColor();
+        }
+        else if (!t.empty && colorToPlay == t.piece.GetComponent<Piece>().color)
+        {
+            chosenPiece= t.piece;
+            t.SetColor(tileHighlight);
+            previousTile.ResetColor();
+            previousTile = t;
         }
         else
         {

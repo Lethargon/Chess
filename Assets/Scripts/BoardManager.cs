@@ -140,6 +140,7 @@ public class BoardManager : MonoBehaviour
                     if (UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
                     if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
                 }
+                UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
                 Debug.Log("white in check: " + whiteInCheck);
                 Debug.Log("black in check: " + blackInCheck);
             }

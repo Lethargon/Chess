@@ -99,6 +99,9 @@ public class BoardManager : MonoBehaviour
     private bool blackInCheck = false;
     private bool gameOver = false;
 
+    private Piece passantable = null;
+    private bool doublestepLastTurn = false;
+
     public List<LogEntry> log = new List<LogEntry>();
 
     private AudioSource audioSource;
@@ -188,8 +191,8 @@ public class BoardManager : MonoBehaviour
                 whiteInCheck = false;
                 for (int i = 0; i < 16; i++)
                 {
-                    if (UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
-                    if (UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
+                    if (whitePieces[i].activeInHierarchy && UpdateLegalMoves(whitePieces[i].GetComponent<Piece>())) blackInCheck = true;
+                    if (blackPieces[i].activeInHierarchy && UpdateLegalMoves(blackPieces[i].GetComponent<Piece>())) whiteInCheck = true;
                 }
                 if(!gameOver)UIController.Instance().SetCheckLights(whiteInCheck, blackInCheck);
                 //Debug.Log("white in check: " + whiteInCheck);
@@ -291,20 +294,59 @@ public class BoardManager : MonoBehaviour
         p.pos = end.pos;
         p.unmoved = false;
 
-        if(p.color == Color.White)
+        if (doublestepLastTurn)
         {
-            if(whiteIdentities[p.id] == PieceType.Pawn && p.pos.y == 7)
+            doublestepLastTurn = false;
+        }
+        else
+        {
+            passantable = null;
+        }
+
+        if (p.color == Color.White)
+        {
+            if(whiteIdentities[p.id] == PieceType.Pawn)
             {
-                whiteIdentities[p.id] = PieceType.Queen;
-                p.gameObject.GetComponent<SpriteRenderer>().sprite = whiteSprites[4];
+                if (p.pos.y == 7)
+                {
+                    whiteIdentities[p.id] = PieceType.Queen;
+                    p.gameObject.GetComponent<SpriteRenderer>().sprite = whiteSprites[4];
+                }
+                if (passantable != null && passantable.pos.x == p.pos.x && passantable.pos.y + 1 == p.pos.y)
+                {
+                    UIController.Instance().root.Q<VisualElement>("WhiteCapture" + whiteCaptures).style.backgroundImage = new StyleBackground(blackSprites[(int)blackIdentities[passantable.id]]);
+                    whiteCaptures++;
+                    passantable.gameObject.SetActive(false);
+                }
+                passantable = null;
+                if (origin.pos.y + 2 == end.pos.y)
+                {
+                    passantable = p;
+                    doublestepLastTurn = true;
+                }
             }
         }
         else
         {
-            if (blackIdentities[p.id] == PieceType.Pawn && p.pos.y == 0)
+            if (blackIdentities[p.id] == PieceType.Pawn)
             {
-                blackIdentities[p.id] = PieceType.Queen;
-                p.gameObject.GetComponent<SpriteRenderer>().sprite = blackSprites[4];
+                if (p.pos.y == 0)
+                {
+                    blackIdentities[p.id] = PieceType.Queen;
+                    p.gameObject.GetComponent<SpriteRenderer>().sprite = blackSprites[4];
+                }
+                if (passantable != null && passantable.pos.x == p.pos.x && passantable.pos.y - 1 == p.pos.y)
+                {
+                    UIController.Instance().root.Q<VisualElement>("BlackCapture" + blackCaptures).style.backgroundImage = new StyleBackground(whiteSprites[(int)whiteIdentities[passantable.id]]);
+                    blackCaptures++;
+                    passantable.gameObject.SetActive(false);
+                }
+                passantable = null;
+                if (origin.pos.y - 2 == end.pos.y)
+                {
+                    passantable = p;
+                    doublestepLastTurn = true;
+                }
             }
         }
 
@@ -349,8 +391,16 @@ public class BoardManager : MonoBehaviour
             {
                 p.AddLegalMove(t.pos);
             }
+            else if (t != null && passantable != null && passantable.color != p.color && passantable.pos.x == t.pos.x && passantable.pos.y + dir == t.pos.y)
+            {
+                p.AddLegalMove(t.pos);
+            }
             t = GetTile(p.pos.x + 1, p.pos.y + 1 * dir);
             if (t != null && !t.empty && t.piece.GetComponent<Piece>().color != p.color)
+            {
+                p.AddLegalMove(t.pos);
+            }
+            else if (t != null && passantable != null && passantable.color != p.color && passantable.pos.x == t.pos.x && passantable.pos.y + dir == t.pos.y)
             {
                 p.AddLegalMove(t.pos);
             }
